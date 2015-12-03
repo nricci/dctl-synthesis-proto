@@ -27,11 +27,11 @@ run_tableaux = \path -> do {
 	putStrLn ("Specification Successfully Parsed (" ++ (show (S.size spec)) ++ " formulas).");
 	putStr ("Tableaux .. ");
 	t <- return $ do_tableaux $ make_tableaux spec;
-	putStrLn ("done.");
+	putStrLn ("done (" ++ (show $ S.size $ nodes t ) ++ " nodes).");
 	writeFile "output/tableaux_raw.dot" (tab2dot t);
 	putStr ("Refining tableaux .. ");
 	t2 <- return $ refine_tableaux t;
-	putStrLn ("done.");
+	putStrLn ("done (" ++ (show $ S.size $ nodes t ) ++ " nodes).");
 	if not $ S.null $ nodes t2 then 
 		do {
 			writeFile "output/tableaux.dot" (tab2dot t2);
@@ -41,4 +41,27 @@ run_tableaux = \path -> do {
 	else
 		putStrLn ("The specification is inconsistent.")
 }
+
+
+ip_get_model = \path -> do {
+	str <- readFile path;
+	spec <- return $ parseSpecification str;
+	putStrLn ("Specification Successfully Parsed (" ++ (show (S.size spec)) ++ " formulas).");
+	putStr ("Tableaux .. ");
+	t <- return $ do_tableaux $ make_tableaux spec;
+	putStrLn ("done (" ++ (show $ S.size $ nodes t ) ++ " nodes).");
+	putStr ("Refining tableaux .. ");
+	t2 <- return $ refine_tableaux t;
+	putStrLn ("done (" ++ (show $ S.size $ nodes t ) ++ " nodes).");
+	putStrLn ("Extracting model.");
+	return $ Model.flatten $ model t2
+
+}
+
+
+
+
+
+
+
 

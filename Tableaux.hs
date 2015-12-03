@@ -71,7 +71,7 @@ frontier t = nodes t S.\\ (R.dom . rel) t
 
 
 blocks :: Node -> Set Node
-blocks (OrNode s) = S.map AndNode $ old_closure s
+blocks (OrNode s) = S.map AndNode $ closure s
 
 
 tiles :: Node -> Set Node
@@ -137,7 +137,7 @@ do_tableaux_impl used t = case S.pick $ nodes t S.\\ used of
 											do_tableaux_impl (used S.+ s S.<+ n) $  t'
 							Nothing -> t
 
-
+	--where xxx = trace ("nodes " ++ (show $ S.size $ nodes t) ++ " - relation " ++ (show $ R.size $ rel t))						
 
 do_tableaux :: Tableaux -> Tableaux
 do_tableaux t = do_tableaux_impl S.empty t
@@ -159,7 +159,7 @@ delete_node n t@(Tableaux root nodes rel) = case n of
 										(OrNode _) -> S.fold delete_node (Tableaux root nodes' rel') (predecesors t n)
 
 		where
-			rel' = nodes' R.<| rel R.|> nodes'
+			rel' = R.fromList $ filter (\(x,y) -> x /= n && y /= n) $ R.toList rel --nodes' R.<| rel R.|> nodes'
 			nodes' = nodes S.\\ nn			
 			nn = S.singleton n 
 
@@ -260,6 +260,31 @@ predecesors :: Tableaux -> Node -> Set Node
 predecesors t n = case R.lookupRan n $ rel t of
 									Just s -> s
 									Nothing -> S.empty
+
+
+{-------------------------
+
+
+		Product
+
+
+--------------------------}	
+
+
+--(|*|) :: Tableaux -> Tableaux -> Tableaux
+--t1 |*| t2 = Tableaux root' nodes' rel' 
+
+--	where
+--		nodes' = 
+
+
+
+
+
+
+
+
+
 
 
 
@@ -585,7 +610,7 @@ tab2dot t@(Tableaux r nodes rel) =  let num = numberNodes t in
 order_flas :: Set Formula -> [String]
 order_flas s = reverse $ sortBy (comparing length) (S.toList (S.map show selection))
 
-	where selection = s --S.filter elementary s 	
+	where selection = S.filter isLiteral s 	
 
 renderNode :: Map Node Int -> Node -> String
 renderNode num n@(OrNode s) = let label = foldr (+++) "" (order_flas s) in

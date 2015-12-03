@@ -101,6 +101,13 @@ flatten m@(Model root nodes rel) = Model root' nodes' rel'
 
 
 
+
+
+
+
+
+
+
  
 (+++) :: String -> String -> String
 (+++) = (\x y -> x ++ ("\n" ++ y))
@@ -130,6 +137,10 @@ renderArcs m@(Model root nodes rel) = foldl (+++) "" (map (uncurry renderOneArc)
 
 renderOneArc :: Node -> Node -> String
 renderOneArc n n' = "n" ++ (show $ id n) ++ " -> " ++ "n" ++ (show $ id n')
+
+
+
+
 
 
 
