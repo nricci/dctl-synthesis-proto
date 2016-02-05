@@ -229,6 +229,18 @@ inconsistent s = (S.member F s) || (not $ S.null $ S.intersection pos (S.map cho
 											_ -> f
 
 
+prop_sat :: Set Formula -> Formula -> Bool
+prop_sat s T	=	True
+prop_sat s F	=	False
+prop_sat s p@(Prop _)	=	S.member p s
+prop_sat s (Not p)	=	not $ prop_sat s p
+prop_sat s (Or p q)		=	prop_sat s p || prop_sat s q
+prop_sat s (And p q)	= 	prop_sat s p && prop_sat s q
+prop_sat s (If p q)		=	(not $ prop_sat s p) || prop_sat s q
+prop_sat s (Iff p q)	=	prop_sat s p == prop_sat s q
+
+
+
 {-
 closure :: Set Formula -> Set (Set Formula)
 closure s = let r1 = S.filter (not . inconsistent) (closure_impl s) in

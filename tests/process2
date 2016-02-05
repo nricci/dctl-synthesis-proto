@@ -1,0 +1,21 @@
+ncs2 && !s2;
+
+AG(ncs2 || try2 || cs2);
+
+AG(ncs2 -> (!try2 && !cs2));
+
+AG(try2 -> (!ncs2 && !cs2));
+
+AG(cs2 -> (!try2 && !ncs2));
+
+
+AG(ncs2 -> AX try2);
+
+
+AG((try2 && s2) -> AX (cs2 && s2));
+
+AG((try2 && !s2) -> AX try2);
+
+
+AG(cs2 -> AX(ncs2 && !s2))
+

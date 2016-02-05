@@ -19,7 +19,6 @@ infixl 7 <\\
 (<\\) :: Ord a => Set a -> a -> Set a
 (<\\) = flip S.delete
 
-
 -- other functions
 
 pick :: Set a -> Maybe a

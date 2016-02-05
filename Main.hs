@@ -15,6 +15,8 @@ import Debug.Trace
 import qualified Model as Model
 import Model (Model)
 
+
+
 main = do {
 	args <- getArgs;
 	run_tableaux $ head args

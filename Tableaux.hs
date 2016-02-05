@@ -41,8 +41,8 @@ data Node 	= 	OrNode {formulas :: Set Formula}
 			deriving (Eq, Ord)
 
 instance Show Node where
-	show (AndNode s) = "<AndNode " ++ show (S.toList s) ++ ">"
-	show (OrNode s) = "<OrNode " ++ show (S.toList s) ++ ">"
+	show (AndNode s) = "<AND-NODE " ++ (show $ filter isLiteral (S.toDescList s)) ++ ">"
+	show (OrNode s) = "<OR-NODE " ++ (show $ filter isLiteral (S.toDescList s)) ++ ">"
 
 
 isOr :: Node -> Bool
@@ -610,7 +610,7 @@ tab2dot t@(Tableaux r nodes rel) =  let num = numberNodes t in
 order_flas :: Set Formula -> [String]
 order_flas s = reverse $ sortBy (comparing length) (S.toList (S.map show selection))
 
-	where selection = S.filter isLiteral s 	
+	where selection = s --S.filter isLiteral s 	
 
 renderNode :: Map Node Int -> Node -> String
 renderNode num n@(OrNode s) = let label = foldr (+++) "" (order_flas s) in

@@ -120,10 +120,11 @@ dup xs = null [(i, j) | i <- [0 .. length xs P.- 1], j <- [0 .. length xs P.- 1]
 
 
 closure :: Set Formula -> Set (Set Formula)
-closure s = S.fromList $ map formulas (cl_impl (filter consistent [make_cls s]) [])		
+closure s = S.fromList $ result
+	
 	where
-		cost = (show $ foldl ((*)) 1 x) ++ " - " ++ (show x) 
-		x = map brrk (S.toList s)
+		result = pick_one_of_each closed_sets []
+		closed_sets = map formulas (cl_impl (filter consistent [make_cls s]) [])	
 
 
 

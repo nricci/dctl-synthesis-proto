@@ -1,0 +1,21 @@
+ncs1 && !s1;
+
+AG(ncs1 || try1 || cs1);
+
+AG(ncs1 -> (!try1 && !cs1));
+
+AG(try1 -> (!ncs1 && !cs1));
+
+AG(cs1 -> (!try1 && !ncs1));
+
+
+AG(ncs1 -> AX try1);
+
+
+AG((try1 && s1) -> AX (cs1 && s1));
+
+AG((try1 && !s1) -> AX try1);
+
+
+AG(cs1 -> AX(ncs1 && !s1))
+

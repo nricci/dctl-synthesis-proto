@@ -1,5 +1,8 @@
-P X True;
+AG (off1 -> AX (on1 && !off1));
+AG (on1 -> AX (off1 && !on1));
 
-O X False
+AG (off2 -> AX (on2 && !off2));
+AG (on2 -> AX (off2 && !on2));
+off2;
 
-
+AG(off1 || off2)

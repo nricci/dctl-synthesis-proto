@@ -9,7 +9,7 @@ AG(try -> (!ncs && !cs));
 AG(cs -> (!try && !ncs));
 
 
-AG(ncs -> (AX try && EX try));
+AG(ncs -> AX try);
 
 
 AG((try && s) -> AX (cs && s));

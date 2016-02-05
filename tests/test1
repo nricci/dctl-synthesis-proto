@@ -1,4 +1,6 @@
-off -> EX on;
-on -> EX off;
+AG (i -> AX !o);
+AG (!i -> AX o);
+AG o;
 
-on
+AG (E True U i);
+AG (E True U !i)

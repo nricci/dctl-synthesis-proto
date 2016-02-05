@@ -1,3 +1,7 @@
 !sem1 && !sem2;
 
-AG ((!sem1 && !sem2) || (!sem1 && sem2) || (sem1 && !sem2))
+AG ((!sem1 && !sem2) -> AX ((sem1 && !sem2) || (!sem1 && sem2) || (!sem1 && !sem2)));
+
+AG ((!sem1 && sem2) -> AX ((!sem1 && sem2) || (!sem1 && !sem2)));
+
+AG ((sem1 && !sem2) -> AX ((sem1 && !sem2) || (!sem1 && !sem2)))
