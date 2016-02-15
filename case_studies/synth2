@@ -1,0 +1,8 @@
+AG (i -> AX !o);
+AG (!i -> AX o);
+
+AG (EX !i);
+AG (EX i);
+
+
+A ((o && !i) || (i && !o)) W False

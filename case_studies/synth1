@@ -1,0 +1,9 @@
+AG ((i != l) -> AX o);
+
+AG ((i == l) -> AX o);
+
+AG (EX !i);
+AG (EX i);
+
+A o W False;
+

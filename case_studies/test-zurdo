@@ -1,0 +1,24 @@
+ncs && !s;
+
+AG(ncs || try || cs);
+
+AG(ncs -> (!try && !cs));
+
+AG(try -> (!ncs && !cs));
+
+AG(cs -> (!try && !ncs));
+
+
+AG(ncs -> AX try && EX try);
+
+AG(try && s -> AX cs);
+
+AG(try && !s -> AX try);
+
+AG(cs -> AX (!cs && !s));
+
+AG(cs -> AX ncs && EX ncs);
+
+AG(EX True);
+
+AG(E True U cs) 
