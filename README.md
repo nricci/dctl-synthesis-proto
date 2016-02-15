@@ -2,9 +2,15 @@
 
 To use the tool do the following:
 
+1. Compile Parser & Lexer
+
+	 happy -o src/parser/Parser.hs src/parser/Grammar.y
+
+	 alex -o src/parser/Lexer.hs src/parser/Tokens.x 
+
 1. Compile
 
-        ghc -XNPlusKPatterns -outputdir build -o main Main.hs
+        ghc -XNPlusKPatterns -isrc -outputdir build -o main src/Main.hs
 
 2. Run the tool    
 
