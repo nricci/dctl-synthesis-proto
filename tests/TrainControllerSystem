@@ -1,8 +1,0 @@
-(!trainstopped && !stopsignal && signalvisible && driverresponsive);
-
-A (EX(!trainstopped) || driverresponsive) W False;
-
-A (EX(!trainstopped) || signalvisible) W False;
-
-A True U ( stopsignal && AX(!trainstopped)) 
-
