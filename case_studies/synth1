@@ -1,6 +1,11 @@
+-- The circuit returns the XOR value of i and l. The goal is 
+-- returning true output no matter what. In this case , this 
+-- is achievable controling the value of l.
+ 
+
 AG ((i != l) -> AX o);
 
-AG ((i == l) -> AX o);
+AG ((i == l) -> AX !o);
 
 AG (EX !i);
 AG (EX i);

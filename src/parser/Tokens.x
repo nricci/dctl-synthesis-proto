@@ -25,6 +25,8 @@ tokens :-
 
   "E"                            { \s -> TokenExists }
   "A"                            { \s -> TokenAll }
+  "O"                            { \s -> TokenObligation }
+  "P"                            { \s -> TokenPermission }
 
   "X"                            { \s -> TokenNext }
   "F"                           { \s -> TokenFuture }
@@ -52,6 +54,8 @@ data Token = TokenFalse
   | TokenXor
   | TokenExists
   | TokenAll
+  | TokenObligation
+  | TokenPermission
   | TokenNext
   | TokenFuture
   | TokenGlobally

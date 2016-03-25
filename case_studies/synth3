@@ -1,0 +1,11 @@
+AG (i1 || i2 -> AX o);
+AG (!i1 && !i2 -> AX !o);
+
+AG (EX !i1);
+AG (EX i1);
+
+AG (EX !i2);
+AG (EX i2);
+
+
+A o W False

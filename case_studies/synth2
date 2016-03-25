@@ -1,8 +1,28 @@
-AG (i -> AX !o);
-AG (!i -> AX o);
+-- The circuit returns a value opposite to that of the input.
+-- The goal is to mantain the opposite value. However in this
+-- case that's not posible because the system can beat it to it
+-- and change the value of i.
 
-AG (EX !i);
-AG (EX i);
 
 
-A ((o && !i) || (i && !o)) W False
+--AG (i -> AX !o);
+--AG (!i -> AX o);
+
+--AG (EX !i);
+--AG (EX i);
+
+--A (i != o) W False
+
+
+AG (this && i -> AX !o);
+AG (this && !i -> AX o);
+
+AG(others -> !this);
+AG(this -> !others);
+AG(this -> AX others);
+AG(othes -> AX this);
+
+AG (others -> EX !i);
+AG (others -> EX i);
+
+A (i != o) W False

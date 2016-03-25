@@ -122,7 +122,7 @@ dup xs = null [(i, j) | i <- [0 .. length xs P.- 1], j <- [0 .. length xs P.- 1]
 
 
 closure :: Set Formula -> Set (Set Formula)
-closure  = old_closure
+closure f = old_closure f
 
 
 

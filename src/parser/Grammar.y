@@ -20,6 +20,8 @@ import Dctl
     '!=' { TokenXor }
     'E' { TokenExists }
     'A' { TokenAll }
+    'O' { TokenObligation }
+    'P' { TokenPermission }
     'X' { TokenNext }
     'F' { TokenFuture }
     'G' { TokenGlobally }
@@ -54,6 +56,9 @@ Formula : Formula '&&' Formula { And $1 $3 }
 
         | 'A' PFormula  { A $2 } 
         | 'E' PFormula  { E $2 }
+        | 'O' PFormula  { O $2 } 
+        | 'P' PFormula  { P $2 }
+
 
         |   'var'   { Prop $1 } 
         |   'true'  { TrueConst }

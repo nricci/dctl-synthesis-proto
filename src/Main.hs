@@ -24,6 +24,7 @@ run_tableaux = \path -> do {
 	str <- readFile path;
 	spec <- return $ S.fromList $ parseSpecification str;
 	putStrLn ("Specification Successfully Parsed (" ++ (show (S.size spec)) ++ " formulas).");
+	--putStrLn ("clsss : " ++ (show (length $ cl $ foldr And TrueConst  $ S.toList spec)));
 	putStr ("Tableaux .. ");
 	t <- return $ do_tableaux $ make_tableaux spec;
 	putStrLn ("done (" ++ (show $ S.size $ nodes t ) ++ " nodes).");

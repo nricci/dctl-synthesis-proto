@@ -614,9 +614,12 @@ order_flas s = reverse $ sortBy (comparing length) (S.toList (S.map show selecti
 
 renderNode :: Map Node Int -> Node -> String
 renderNode num n@(OrNode s) = let label = foldr (+++) "" (order_flas s) in
-										"n" ++ show (num M.! n) ++ " [shape=circle, label=\"" ++ label ++ "\"];" 
-renderNode num n@(AndNode s) = let label = foldr (+++) "" (order_flas s) in
+										"n" ++ show (num M.! n) ++ " [shape=circle, label=\"" ++ label ++ "\"];"
+renderNode num n@(AndNode s) | S.member Norm s = let label = foldr (+++) "" (order_flas s) in
 										"n" ++ show (num M.! n) ++ " [shape=square, label=\"" ++ label ++ "\"];" 
+renderNode num n@(AndNode s) | otherwise = let label = foldr (+++) "" (order_flas s) in
+										"n" ++ show (num M.! n) ++ " [shape=square, style = dotted, label=\"" ++ label ++ "\"];" 
+
 
 
 

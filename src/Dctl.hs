@@ -152,12 +152,11 @@ break_rule (E (U p q))	=	[[q],[p, E (X (E (U p q)))]]
 break_rule (E (W p q))	=	[[q],[p, E (X (E (W p q)))]]
 break_rule (E (G p))	=	[[p, E (X (E (G p)))]]
 -- Obligation
+break_rule (O (G p))	=	[[Norm, p, O (X (O (G p)))]]
 break_rule (O (U p q))	=	[[Norm, q],[Norm, p, O (X (O (U p q)))]]
-break_rule (O (W p q))	=	[[Norm, q],[Norm, p, O (X (O (W p q)))]]
 break_rule (O (X p))	=	[[A(X (Or (Not Norm) p))]]
 -- Permission
 break_rule (P (U p q))	=	[[Norm, q],[Norm, p, P (X (P (U p q)))]]
-break_rule (P (W p q))	=	[[Norm, q],[Norm, p, P (X (P (W p q)))]]
 break_rule (P (X p))	=	[[E(X (And Norm p))]]
 
 
@@ -220,6 +219,43 @@ brrk (O (X p))	=	1
 brrk (P (U p q))	=	brrk p + brrk q
 brrk (P (W p q))	=	brrk p + brrk q
 brrk (P (X p))	=	1
+
+
+
+-- Fischer-Lander Closure: returns every subformula of f
+cl :: Formula -> [Formula]
+cl TrueConst = []
+cl FalseConst = []
+cl f@(Prop p) = [f]
+cl f@(And p q) = f : (cl p ++ cl q)
+cl f@(Or p q) = f : (cl p ++ cl q)
+cl f@(If p q) = f : (cl p ++ cl q)
+cl f@(Iff p q) = f : (cl p ++ cl q)
+cl f@(Xor p q) = f : (cl p ++ cl q)
+cl f@(Not p) = f : cl p
+
+cl f@(A (X p)) = f : cl p
+cl f@(A (U p q)) = f : (cl q ++ cl p ++ [A (X (A (U p q)))])
+cl f@(A (W p q)) = f : (cl q ++ cl p ++ [A (X (A (W p q)))])
+cl f@(A (G p)) = f : (cl p ++ [A (X (A (G p)))])
+-- Exists
+cl f@(E (X p)) = f : cl p
+cl f@(E (U p q)) = f : (cl q ++ cl p ++ [E (X (E (U p q)))])
+cl f@(E (W p q))	= f : (cl p ++ cl q ++ [E (X (E (W p q)))])
+cl f@(E (G p))	= f : (cl p ++ [E (X (E (G p)))])
+cl f@_ = error ("no match for : " ++ show f)
+-- Obligation
+--cl f@(O (U p q))	= f :	[[Norm, q],[Norm, p, O (X (O (U p q)))]]
+--cl f@(O (W p q))	= f :	 [[Norm, q],[Norm, p, O (X (O (W p q)))]]
+--cl f@(O (X p))	= f :	[[A(X (Or (Not Norm) p))]]
+-- Permission
+--cl f@(P (U p q))	=	f : [[Norm, q],[Norm, p, P (X (P (U p q)))]]
+--cl f@(P (W p q))	=	f : [[Norm, q],[Norm, p, P (X (P (W p q)))]]
+--cl f@(P (X p))	= f :	[[E(X (And Norm p))]]
+
+
+
+
 
 
 
